@@ -1,0 +1,32 @@
+import { EventEmitter } from '@angular/core';
+import { Variable, DataType } from '../../../interfaces/shared.interfaces';
+import * as i0 from "@angular/core";
+export declare class VariableManagerComponent {
+    variables: Variable[];
+    allowVariableCreation: boolean;
+    showVariableManager: boolean;
+    variableSelected: EventEmitter<Variable>;
+    variableInserted: EventEmitter<Variable>;
+    variableCreated: EventEmitter<Variable>;
+    variableDeleted: EventEmitter<Variable>;
+    closeVariableManager: EventEmitter<void>;
+    selectedVariable: Variable | null;
+    showCreateForm: boolean;
+    newVariable: Variable;
+    DataType: typeof DataType;
+    onVariableSelected(variable: Variable): void;
+    onInsertVariable(variable: Variable): void;
+    onDeleteVariable(variable: Variable, event: Event): void;
+    onShowCreateForm(): void;
+    onHideCreateForm(): void;
+    onCreateVariable(): void;
+    onClose(): void;
+    isValidNewVariable(): boolean;
+    getValuePlaceholder(): string;
+    getVariableTypeLabel(type: DataType): string;
+    getVariableValueDisplay(variable: Variable): string;
+    private resetNewVariableForm;
+    private parseVariableValue;
+    static ɵfac: i0.ɵɵFactoryDeclaration<VariableManagerComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<VariableManagerComponent, "lib-variable-manager", never, { "variables": { "alias": "variables"; "required": false; }; "allowVariableCreation": { "alias": "allowVariableCreation"; "required": false; }; "showVariableManager": { "alias": "showVariableManager"; "required": false; }; }, { "variableSelected": "variableSelected"; "variableInserted": "variableInserted"; "variableCreated": "variableCreated"; "variableDeleted": "variableDeleted"; "closeVariableManager": "closeVariableManager"; }, never, never, true, never>;
+}

@@ -1,0 +1,34 @@
+import { TypeAnalyzerService } from '../type-analyzer/type-analyzer.service';
+import { ValidationService } from '../validation/validation.service';
+import { VariableManagerService } from '../variable-manager/variable-manager.service';
+import { BinaryTreeParserService } from '../binary-tree-parser/binary-tree-parser.service';
+import { ConfigurationService } from '../configuration/configuration.service';
+import { ExpressionEditorConfig, ExpressionEditorConfigEnhanced, ExpressionResult, Variable, VariableMapping } from '../../interfaces/shared.interfaces';
+import * as i0 from "@angular/core";
+export declare class ExpressionEvaluatorService {
+    private typeAnalyzer;
+    private validator;
+    private variableManager;
+    private binaryTreeParser;
+    private configurationService;
+    constructor(typeAnalyzer: TypeAnalyzerService, validator: ValidationService, variableManager: VariableManagerService, binaryTreeParser: BinaryTreeParserService, configurationService: ConfigurationService);
+    addVariable(variable: Variable): void;
+    removeVariable(name: string): void;
+    getVariables(): Variable[];
+    getVariable(name: string): Variable | undefined;
+    identifyExpressionType(expression: string, config?: ExpressionEditorConfig | ExpressionEditorConfigEnhanced): ExpressionResult;
+    private isLambdaFunction;
+    getAssignmentConfig(): ExpressionEditorConfig;
+    getLimitedConnectorConfig(allowDivision?: boolean): ExpressionEditorConfig;
+    getBooleanConfig(): ExpressionEditorConfig;
+    getArithmeticConfig(): ExpressionEditorConfig;
+    getConnectorConfig(): ExpressionEditorConfig;
+    getGeneralConfig(): ExpressionEditorConfig;
+    getPlaceholderForType(config: ExpressionEditorConfig): string;
+    private isTernaryExpression;
+    transformToBackend(expression: string, mappings: VariableMapping[]): string;
+    transformToFrontend(expression: string, mappings: VariableMapping[]): string;
+    private escapeRegex;
+    static ɵfac: i0.ɵɵFactoryDeclaration<ExpressionEvaluatorService, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<ExpressionEvaluatorService>;
+}

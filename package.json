@@ -1,0 +1,41 @@
+{
+  "name": "oktoflow-transex",
+  "version": "1.0.3",
+  "description": "Angular Expression Editor - Context-aware expression builder with validation, type inference, and AST generation",
+  "author": "Ahmed Salem",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/transex.git"
+  },
+  "keywords": [
+    "angular",
+    "expression-editor",
+    "formula-builder",
+    "validation",
+    "type-inference",
+    "ast",
+    "binary-tree",
+    "parser"
+  ],
+  "peerDependencies": {
+    "@angular/common": "^19.0.0 || ^20.0.0",
+    "@angular/core": "^19.0.0 || ^20.0.0",
+    "@angular/forms": "^19.0.0 || ^20.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false,
+  "module": "fesm2022/oktoflow-transex.mjs",
+  "typings": "index.d.ts",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./fesm2022/oktoflow-transex.mjs"
+    }
+  }
+}
