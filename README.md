@@ -1,58 +1,99 @@
-## 🎯 What is OktoFlow TransEx?
 
-**OktoFlow TransEx** is an Angular library that provides a sophisticated expression editor component with:
 
-- **Context-aware validation** for different expression types (boolean, assignment, arithmetic, etc.)
-- **Real-time type inference** to detect return types (Boolean, Integer, Real, String, etc.)
-- **Abstract Syntax Tree (AST) generation** for backend processing
-- **Built-in functions** (mathematical, logical, string operations)
-- **Custom function builder** to create user-defined functions
-- **Variable management** with type-safe variable creation
-- **Symbol picker** for quick insertion of operators and symbols
-- **Simple mode** for basic textarea input with validation
-- **Full Angular Forms integration** (ControlValueAccessor)
+## 📦 Installation and oktoflow- integration:
 
-Perfect for building formula editors, condition builders, data transformation tools, and expression-based workflows.
+### Install via npm:  npm install oktoflow-transex --force
 
----
+####### Create html file in the new component, as in this Xpath managementUI\src\app\components\editor\inputControls\expression-input\expression-input.component.html
+<div class="expression-input-wrapper">
+  <lib-expression-editor
+    [(ngModel)]="expressionValue"
+    [simpleMode]="true"
+    [editorConfig]="limitedConnectorConfig"
+    [placeholder]="'Enter expression...'"
+    [textareaStyle]="textareaStyle"
+    (binaryTreeChange)="onBinaryTreeChange($event)"
+    >
+  </lib-expression-editor>
+</div>
 
-## ✨ Features
+##### and in component ts file managementUI\src\app\components\editor\inputControls\expression-input\expression-input.component.ts
 
-- ✅ **5 Context Types**: Boolean, Assignment, Arithmetic, Limited Connector, General
-- ✅ **Type Inference**: Automatic detection of Integer, Real, Boolean, String, Assignment types
-- ✅ **AST Generation**: Binary tree output for backend expression processing
-- ✅ **Built-in Functions**: 30+ mathematical, logical, and string functions
-- ✅ **Custom Functions**: Create and manage user-defined functions
-- ✅ **Variable Manager**: Type-safe variable creation and management
-- ✅ **Symbol Picker**: Quick access to operators and mathematical symbols
-- ✅ **Simple Mode**: Lightweight textarea-only mode
-- ✅ **Reactive Forms**: Full ControlValueAccessor implementation
-- ✅ **Customizable Styling**: Configure colors, borders, fonts, and more
-- ✅ **Real-time Validation**: Instant feedback on expression validity
-- ✅ **TypeScript Support**: Full type definitions included
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { editorInput } from 'src/interfaces';
+import { DataType, ContextType } from 'oktoflow-transex';
 
----
+@Component({
+  selector: 'app-expression-input',
+  templateUrl: './expression-input.component.html',
+  styleUrls: [],
+  standalone: false
+})
+export class ExpressionInputComponent implements OnInit {
 
-## 📦 Installation
+  @Input() input: editorInput | undefined;
+  @Output() valueChange = new EventEmitter<string>();
 
-### Install via npm:
-npm install oktoflow-transex
+  expressionValue: string = '';
+  
+  // Limited Connector Context configuration
+  limitedConnectorConfig = {
+    contextType: ContextType.LIMITED_CONNECTOR,
+    expectedResultType: DataType.REAL,
+    allowDivision: false
+  };
 
-#######
-Peer Dependencies: 
-npm install @angular/common@^19.0.0 @angular/core@^19.0.0 @angular/forms@^19.0.0
+  // Textarea style configuration matching the image
+  textareaStyle = {
+    borderColor: '#4a90a4',
+    focusBorderColor: '#357a8a',
+    validBorderColor: '#28a745',
+    errorBorderColor: '#dc3545',
+    borderRadius: '4px',
+    fontSize: '14px',
+    padding: '8px 12px'
+  };
 
+  constructor() { }
+
+  ngOnInit(): void {
+    if (this.input && this.input.value) {
+      this.expressionValue = String(this.input.value);
+    }
+  }
+
+  /**
+   * Handles binary tree changes from TransEx editor.
+   * Logs the abstract syntax tree to browser console for debugging.
+   */
+  onBinaryTreeChange(binaryTreeResult: any): void {
+    if (binaryTreeResult?.success && binaryTreeResult.tree) {
+      console.log('🌳 Expression AST');
+      console.log('Tree:', binaryTreeResult.tree);
+      console.log('JSON:', JSON.stringify(binaryTreeResult.tree, null, 2));
+    }
+  }
+
+}
+
+##### and in app.module.ts in managementUI\src\app\app.module.ts
+import { ExpressionInputComponent } from './components/editor/inputControls/expression-input/expression-input.component';
+import { ExpressionEditorComponent } from 'oktoflow-transex';
+Then add  ExpressionInputComponent in the declarations array, and in the bootstrap array add
+ExpressionEditorComponent], providers: [{
+            provide: HTTP_INTERCEPTORS,
+            useClass: Interceptor,
+            multi: true,
+        },
 ######
-#######
-oktoflow- integration:
 
-Add to tsconfig.json under compilerOptions:
-"skipLibCheck": true,
-"skipDefaultLibCheck": true,
-
-
-######
-
+-- Then add in line 197 in editor.component.html in managementUI\src\app\components\editor\editor.component.html
+ <!-- Separate Expression Editor Card in Optionals-->
+          <mat-card appearance="outlined" class="inputBox custom" *ngIf="input.name && input.name.toLowerCase() === 'description'">
+            <p class="inputLabel">Expression Editor (Limited Connector Context)</p>
+            <app-expression-input [input]="input"></app-expression-input>
+          </mat-card>
+        </div>
 ```bash
 
 
