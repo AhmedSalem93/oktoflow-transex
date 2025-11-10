@@ -17,7 +17,7 @@
   </lib-expression-editor>
 </div>
 
-##### and in component ts file managementUI\src\app\components\editor\inputControls\expression-input\expression-input.component.ts
+####### and in component ts file managementUI\src\app\components\editor\inputControls\expression-input\expression-input.component.ts
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { editorInput } from 'src/interfaces';
@@ -76,7 +76,7 @@ export class ExpressionInputComponent implements OnInit {
 
 }
 
-##### and in app.module.ts in managementUI\src\app\app.module.ts
+####### and in app.module.ts in managementUI\src\app\app.module.ts
 import { ExpressionInputComponent } from './components/editor/inputControls/expression-input/expression-input.component';
 import { ExpressionEditorComponent } from 'oktoflow-transex';
 Then add  ExpressionInputComponent in the declarations array, and in the bootstrap array add
@@ -85,9 +85,9 @@ ExpressionEditorComponent], providers: [{
             useClass: Interceptor,
             multi: true,
         },
-######
 
--- Then add in line 197 in editor.component.html in managementUI\src\app\components\editor\editor.component.html
+
+####### Then add in line 197 in editor.component.html in managementUI\src\app\components\editor\editor.component.html
  <!-- Separate Expression Editor Card in Optionals-->
           <mat-card appearance="outlined" class="inputBox custom" *ngIf="input.name && input.name.toLowerCase() === 'description'">
             <p class="inputLabel">Expression Editor (Limited Connector Context)</p>
